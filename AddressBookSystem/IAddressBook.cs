@@ -19,8 +19,8 @@ namespace AddressBookSystem
         /// <param name="state">The state.</param>
         /// <param name="zip">The zip.</param>
         /// <param name="phoneNumber">The phone number.</param>
-        /// <param name="emailAddress">The email address.</param>
-        public void AddContact(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string emailAddress);
+        /// <param name="email">The email address.</param>
+        public void AddContact(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string email);
         /// <summary>
         /// Displays the contact.
         /// </summary>

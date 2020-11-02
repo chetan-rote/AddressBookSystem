@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace AddressBookSystem
-{   
+{
     class AddressBook : IAddressBook
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace AddressBookSystem
         /// <param name="zip">The zip.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="emailAddress">The email address.</param>
-        public void AddContact(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string emailAddress)
+        public void AddContact(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string email)
         {
             Contact contact = new Contact();
             contact.FirstName = firstName;
@@ -30,7 +30,7 @@ namespace AddressBookSystem
             contact.City = city;
             contact.State = state;
             contact.Zip = zip;
-            contact.Email = emailAddress;
+            contact.Email = email ;
             contact.PhoneNumber = phoneNumber;
             addressBook.Add(contact.FirstName, contact);
         }
@@ -48,6 +48,56 @@ namespace AddressBookSystem
                 Console.WriteLine("Zip : " + pair.Value.Zip);
                 Console.WriteLine("Phone Number : " + pair.Value.PhoneNumber);
                 Console.WriteLine("Email : " + pair.Value.Email + "\n");
+            }
+        }
+        /// <summary>
+        /// Edits the contact.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        public void EditContact(string firstName)
+        {
+            foreach (KeyValuePair<string, Contact> item in addressBook)
+            {
+                if (item.Key.Equals(firstName))
+                {
+                    Console.WriteLine("Choose What to Edit \n1.First Name \n2.Last Name \n3.Address \n4.City \n5.State \n6.Email \n7.Zip \n8.Phone Number");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine("Enter New First Name :");
+                            item.Value.FirstName = Console.ReadLine();
+                            break;
+                        case 2:
+                            Console.WriteLine("Enter New Last Name :");
+                            item.Value.LastName = Console.ReadLine();
+                            break;
+                        case 3:
+                            Console.WriteLine("Enter New Address :");
+                            item.Value.Address = Console.ReadLine();
+                            break;
+                        case 4:
+                            Console.WriteLine("Enter New City :");
+                            item.Value.City = Console.ReadLine();
+                            break;
+                        case 5:
+                            Console.WriteLine("Enter New State :");
+                            item.Value.State = Console.ReadLine();
+                            break;
+                        case 6:
+                            Console.WriteLine("Enter New Email :");
+                            item.Value.Email = Console.ReadLine();
+                            break;
+                        case 7:
+                            Console.WriteLine("Enter New Zip :");
+                            item.Value.Zip = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        case 8:
+                            Console.WriteLine("Enter New Phone Number :");
+                            item.Value.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                            break;
+                    }
+                }
             }
         }
     }
