@@ -32,6 +32,8 @@ namespace AddressBookSystem
             string email = Console.ReadLine();
             addressBook.AddContact(firstName, lastName, address, city, state, zip, phoneNumber, email);
             addressBook.DisplayContact();
+            addressBook.EditContact(firstName);
+            addressBook.DisplayContact();
         }
     }
 }
