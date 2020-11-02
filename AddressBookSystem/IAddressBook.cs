@@ -24,6 +24,16 @@ namespace AddressBookSystem
         /// <summary>
         /// Displays the contact.
         /// </summary>
-        public void DisplayContact();
+        public void DisplayContact(string name);
+        /// <summary>
+        /// Edits the contact.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        public void EditContact(string name);
+        /// <summary>
+        /// Deletes the contact.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        public void DeleteContact(string name);
     }
 }
