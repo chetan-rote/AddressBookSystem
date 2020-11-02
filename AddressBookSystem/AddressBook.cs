@@ -23,21 +23,14 @@ namespace AddressBookSystem
         /// <param name="emailAddress">The email address.</param>
         public void AddContact(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string email)
         {
-            Contact contact = new Contact();
-            contact.FirstName = firstName;
-            contact.LastName = lastName;
-            contact.Address = address;
-            contact.City = city;
-            contact.State = state;
-            contact.Zip = zip;
-            contact.Email = email ;
-            contact.PhoneNumber = phoneNumber;
+            Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
             addressBook.Add(contact.FirstName, contact);
+            Console.WriteLine("\nAdded Succesfully. \n");
         }
         /// <summary>
         /// Displays the contact.
         /// </summary>
-        public void DisplayContact()
+        public void DisplayContact(string name)
         {
             foreach (KeyValuePair<string, Contact> pair in addressBook)
             {
@@ -98,6 +91,22 @@ namespace AddressBookSystem
                             break;
                     }
                 }
+            }
+        }
+        /// <summary>
+        /// Delete's the contact using name.
+        /// </summary>
+        /// <param name="name"></param>
+        public void DeleteContact(string name)
+        {
+            if (addressBook.ContainsKey(name))
+            {
+                addressBook.Remove(name);
+                Console.WriteLine("\nDeleted Succesfully.\n");
+            }
+            else
+            {
+                Console.WriteLine("\nNot Found, Try Again.\n");
             }
         }
     }
