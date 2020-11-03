@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 namespace AddressBookSystem
 {
     class Program
@@ -10,15 +10,32 @@ namespace AddressBookSystem
         /// <param name="args">The arguments.</param>
         static void Main(string[] args)
         {
-            int choice;
-            Console.WriteLine("Hello Welcome to Address Book System...!");
-            ///Created the object of address book class
+            ///Variables
+            int choice, choice1;
+            string bookName = "default";
+            Console.WriteLine("Welcome to Address Book Program");
+            ///Creates reference of AdressBook.
             AddressBook addressBook = new AddressBook();
-            while (true)
+            ///Menu for AddressBook.
+            Console.WriteLine("Would You Like To \n1.Work on default AddressBook \n2.Create New AddressBook");
+            choice1 = Convert.ToInt32(Console.ReadLine());
+            switch (choice1)
             {
-                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.Display All Contacts \n5.Exit Application\n");
+                case 1:
+                    addressBook.AddAddressBook(bookName);
+                    break;
+                case 2:
+                    Console.WriteLine("Enter Name Of New Addressbook You want to create : ");
+                    bookName = Console.ReadLine();
+                    addressBook.AddAddressBook(bookName);
+                    break;
+            }
+            do
+            {
+                ///Menu for Contacts.
+                Console.WriteLine($"Working On {bookName} AddressBook\n");
+                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.View A Contact \n5.View All Contacts \n6.Add New AddressBook \n7.Switch AddressBook \n8.Exit Application\n");
                 choice = Convert.ToInt32(Console.ReadLine());
-                ///Switch to give choices to user.
                 switch (choice)
                 {
                     case 1:
@@ -37,33 +54,63 @@ namespace AddressBookSystem
                         Console.WriteLine("Enter Zip :");
                         int zip = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Enter Phone Number :");
-                        long phoneNumber = Convert.ToInt64(Console.ReadLine());
-                        addressBook.AddContact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+                        long phoneNumber = long.Parse(Console.ReadLine());
+                        addressBook.AddContact(firstName, lastName, address, city, state, email, zip, phoneNumber, bookName);
                         break;
                     case 2:
                         Console.WriteLine("Enter First Name Of Contact To Edit :");
                         string nameToEdit = Console.ReadLine();
-                        addressBook.EditContact(nameToEdit);
+                        addressBook.EditContact(nameToEdit, bookName);
                         break;
                     case 3:
                         Console.WriteLine("Enter First Name Of Contact To Delete :");
                         string nameToDelete = Console.ReadLine();
-                        addressBook.DeleteContact(nameToDelete);
+                        addressBook.DeleteContact(nameToDelete, bookName);
                         break;
                     case 4:
                         Console.WriteLine("Enter First Name Of Contact To View :");
-                       // string nameToDisplay = Console.ReadLine();
-                        addressBook.DisplayAllContact();
+                        string nameToView = Console.ReadLine();
+                        addressBook.ViewContact(nameToView, bookName);
                         break;
                     case 5:
-                        Console.WriteLine("Thank You For Using Address Book System.");
-                        Environment.Exit(0);
+                        addressBook.ViewAllContacts(bookName);
                         break;
-                    default:
-                        Console.WriteLine("Enter Valid Choice.");
+                    case 6:
+                        Console.WriteLine("Enter Name For New AddressBook");
+                        string newAddressBook = Console.ReadLine();
+                        addressBook.AddAddressBook(newAddressBook);
+                        Console.WriteLine("Would you like to Switch to " + newAddressBook);
+                        Console.WriteLine("1.Yes \n2.No");
+                        int c = Convert.ToInt32(Console.ReadLine());
+                        if (c == 1)
+                        {
+                            bookName = newAddressBook;
+                        }
+                        break;
+                    case 7:
+                        Console.WriteLine("Enter Name Of AddressBook From Below List");
+                        foreach (KeyValuePair<string, AddressBook> item in addressBook.GetAddressBook())
+                        {
+                            Console.WriteLine(item.Key);
+                        }
+                        while (true)
+                        {
+                            bookName = Console.ReadLine();
+                            if (addressBook.GetAddressBook().ContainsKey(bookName))
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("No such AddressBook found. Try Again.");
+                            }
+                        }
+                        break;
+                    case 8:
+                        Console.WriteLine("Thank You For Using Address Book System.");
                         break;
                 }
-            }
+            } while (choice != 8);
         }
     }
 }

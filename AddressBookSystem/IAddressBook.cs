@@ -20,20 +20,30 @@ namespace AddressBookSystem
         /// <param name="zip">The zip.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="email">The email address.</param>
-        public void AddContact(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string email);
+        public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber, string bookName);
         /// <summary>
         /// Displays the contact.
         /// </summary>
-        public void DisplayAllContact();
+        /// <param name="name">The name.</param>
+        public void ViewContact(string name, string bookName);
+        /// <summary>
+        /// Displays all contact.
+        /// </summary>
+        //public void DisplayAllContact();
         /// <summary>
         /// Edits the contact.
         /// </summary>
         /// <param name="name">The name.</param>
-        public void EditContact(string name);
+        public void EditContact(string name, string bookName);
         /// <summary>
         /// Deletes the contact.
         /// </summary>
         /// <param name="name">The name.</param>
-        public void DeleteContact(string name);
+        public void DeleteContact(string name, string bookName);
+        /// <summary>
+        /// Adds the address book.
+        /// </summary>
+        /// <param name="bookName">Name of the book.</param>
+        public void AddAddressBook(string bookName);
     }
 }
