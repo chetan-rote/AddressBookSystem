@@ -24,7 +24,7 @@ namespace AddressBookSystem
         /// <summary>
         /// Displays the contact.
         /// </summary>
-        public void DisplayContact(string name);
+        public void DisplayAllContact();
         /// <summary>
         /// Edits the contact.
         /// </summary>

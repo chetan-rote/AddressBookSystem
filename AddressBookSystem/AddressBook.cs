@@ -30,11 +30,12 @@ namespace AddressBookSystem
         /// <summary>
         /// Displays the contact.
         /// </summary>
-        public void DisplayContact(string name)
+        public void DisplayAllContact()
         {
             foreach (KeyValuePair<string, Contact> pair in addressBook)
             {
                 Console.WriteLine("First Name : " + pair.Value.FirstName);
+                Console.WriteLine("Last Name : " + pair.Value.LastName);
                 Console.WriteLine("Address : " + pair.Value.Address);
                 Console.WriteLine("City : " + pair.Value.City);
                 Console.WriteLine("State : " + pair.Value.State);
