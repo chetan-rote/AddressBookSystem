@@ -12,6 +12,7 @@ namespace AddressBookSystem
         /// The address book dictionary stores address books.
         private Dictionary<string, AddressBook> addressBookDictionary = new Dictionary<string, AddressBook>();
         /// <summary>
+        /// UC_1
         /// Adds the contact.
         /// </summary>
         /// <param name="firstName">The first name.</param>
@@ -79,6 +80,7 @@ namespace AddressBookSystem
             }
         }
         /// <summary>
+        /// UC_3
         /// Edits the contact.
         /// </summary>
         /// <param name="name">The name.</param>
@@ -131,6 +133,7 @@ namespace AddressBookSystem
             }
         }
         /// <summary>
+        /// UC_4
         /// Deletes the contact.
         /// </summary>
         /// <param name="name">The name.</param>
@@ -148,6 +151,7 @@ namespace AddressBookSystem
             }
         }
         /// <summary>
+        /// UC_6
         /// Adds the address book.
         /// </summary>
         /// <param name="bookName">Name of the book.</param>
@@ -166,20 +170,6 @@ namespace AddressBookSystem
             return addressBookDictionary;
         }
         /// <summary>
-        /// Gets the list of dictctionary keys.
-        /// </summary>
-        /// <param name="bookName">Name of the book.</param>
-        /// <returns></returns>
-        public List<Contact> GetListOfDictctionaryKeys(string bookName)
-        {
-            List<Contact> book = new List<Contact>();
-            foreach (var value in addressBookDictionary[bookName].addressBook.Values)
-            {
-                book.Add(value);
-            }
-            return book;
-        }
-        /// <summary>
         /// Checks the duplicate entry in Address Book.
         /// </summary>
         /// <param name="contacts">The c.</param>
@@ -195,7 +185,12 @@ namespace AddressBookSystem
             }
             return false;
         }
-
+        /// <summary>
+        /// Checks for blank space.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastname">The lastname.</param>
+        /// <returns></returns>
         public bool CheckForSpace(string firstName, string lastname)
         {
             if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastname))
@@ -203,6 +198,55 @@ namespace AddressBookSystem
                 return true;
             }
             return false;
+        }
+        public List<Contact> GetListOfDictctionaryKeys(string bookName)
+        {
+            List<Contact> book = new List<Contact>();
+            foreach (var value in addressBookDictionary[bookName].addressBook.Values)
+            {
+                book.Add(value);
+            }
+            return book;
+        }
+        public List<Contact> GetListOfDictctionaryKeys2(Dictionary<string, Contact> d)
+        {
+            List<Contact> book = new List<Contact>();
+            foreach (var value in d.Values)
+            {
+                book.Add(value);
+            }
+            return book;
+        }
+        /// <summary>
+        /// UC_8
+        /// Searches the person by city.
+        /// </summary>
+        /// <param name="city">The city.</param>
+        public void SearchPersonByCity(string city)
+        {
+            foreach (AddressBook addressbookobj in addressBookDictionary.Values)
+            {
+                List<Contact> contactList = GetListOfDictctionaryKeys2(addressbookobj.addressBook);
+                foreach (Contact contact in contactList.FindAll(c => c.City.Equals(city)).ToList())
+                {
+                    Console.WriteLine(contact.ToString());
+                }
+            }
+        }
+        /// <summary>
+        /// Searches the state of the person by state.
+        /// </summary>
+        /// <param name="state">The state.</param>
+        public void SearchPersonByState(string state)
+        {
+            foreach (AddressBook addressbookobj in addressBookDictionary.Values)
+            {
+                List<Contact> contactList = GetListOfDictctionaryKeys2(addressbookobj.addressBook);
+                foreach (Contact contact in contactList.FindAll(c => c.State.Equals(state)).ToList())
+                {
+                    Console.WriteLine(contact.ToString());
+                }
+            }
         }
     }
 }
