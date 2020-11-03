@@ -4,12 +4,12 @@ using System.Text;
 
 namespace AddressBookSystem
 {
-    class AddressBook : IAddressBook
+    public class AddressBook : IAddressBook
     {
-        /// <summary>
-        /// The address book dictionary.
-        /// </summary>
-        private Dictionary<string, Contact> addressBook = new Dictionary<string, Contact>();
+        /// The address book stores contact details     
+        private Dictionary<string, Contact> addressBook = new Dictionary<string, Contact>();        
+        /// The address book dictionary stores address books.
+        private Dictionary<string, AddressBook> addressBookDictionary = new Dictionary<string, AddressBook>();
         /// <summary>
         /// Adds the contact.
         /// </summary>
@@ -18,41 +18,66 @@ namespace AddressBookSystem
         /// <param name="address">The address.</param>
         /// <param name="city">The city.</param>
         /// <param name="state">The state.</param>
+        /// <param name="email">The email address.</param>
         /// <param name="zip">The zip.</param>
         /// <param name="phoneNumber">The phone number.</param>
-        /// <param name="emailAddress">The email address.</param>
-        public void AddContact(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string email)
-        {
-            Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-            addressBook.Add(contact.FirstName, contact);
+        /// <param name="bookName"></param>
+        public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber, string bookName)
+        {           
+            Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email, bookName);
+            addressBookDictionary[bookName].addressBook.Add(contact.FirstName, contact);
             Console.WriteLine("\nAdded Succesfully. \n");
         }
         /// <summary>
         /// Displays the contact.
         /// </summary>
-        public void DisplayAllContact()
+        /// <param name="name">The name.</param>
+        /// <param name="bookName"></param>
+        public void ViewContact(string name, string bookName)
         {
-            foreach (KeyValuePair<string, Contact> pair in addressBook)
+            foreach (KeyValuePair<string, Contact> item in addressBookDictionary[bookName].addressBook)
             {
-                Console.WriteLine("First Name : " + pair.Value.FirstName);
-                Console.WriteLine("Last Name : " + pair.Value.LastName);
-                Console.WriteLine("Address : " + pair.Value.Address);
-                Console.WriteLine("City : " + pair.Value.City);
-                Console.WriteLine("State : " + pair.Value.State);
-                Console.WriteLine("Zip : " + pair.Value.Zip);
-                Console.WriteLine("Phone Number : " + pair.Value.PhoneNumber);
-                Console.WriteLine("Email : " + pair.Value.Email + "\n");
+                if (item.Key.Equals(name))
+                {
+                    Console.WriteLine("First Name   : " + item.Value.FirstName);
+                    Console.WriteLine("Last Name    : " + item.Value.LastName);
+                    Console.WriteLine("Address      : " + item.Value.Address);
+                    Console.WriteLine("City         : " + item.Value.City);
+                    Console.WriteLine("State        : " + item.Value.State);
+                    Console.WriteLine("Email        : " + item.Value.Email);
+                    Console.WriteLine("Zip          : " + item.Value.Zip);
+                    Console.WriteLine("Phone Number : " + item.Value.PhoneNumber + "\n");
+                }
+            }
+        }
+        /// <summary>
+        /// Views all contacts.
+        /// </summary>
+        /// <param name="bookName">Name of the book.</param>
+        public void ViewAllContacts(string bookName)
+        {
+            foreach (KeyValuePair<string, Contact> item in addressBookDictionary[bookName].addressBook)
+            {
+                Console.WriteLine("First Name   : " + item.Value.FirstName);
+                Console.WriteLine("Last Name    : " + item.Value.LastName);
+                Console.WriteLine("Address      : " + item.Value.Address);
+                Console.WriteLine("City         : " + item.Value.City);
+                Console.WriteLine("State        : " + item.Value.State);
+                Console.WriteLine("Email        : " + item.Value.Email);
+                Console.WriteLine("Zip          : " + item.Value.Zip);
+                Console.WriteLine("Phone Number : " + item.Value.PhoneNumber + "\n");
             }
         }
         /// <summary>
         /// Edits the contact.
         /// </summary>
         /// <param name="name">The name.</param>
-        public void EditContact(string firstName)
+        /// <param name="bookName"></param>
+        public void EditContact(string name, string bookName)
         {
-            foreach (KeyValuePair<string, Contact> item in addressBook)
+            foreach (KeyValuePair<string, Contact> item in addressBookDictionary[bookName].addressBook)
             {
-                if (item.Key.Equals(firstName))
+                if (item.Key.Equals(name))
                 {
                     Console.WriteLine("Choose What to Edit \n1.First Name \n2.Last Name \n3.Address \n4.City \n5.State \n6.Email \n7.Zip \n8.Phone Number");
                     int choice = Convert.ToInt32(Console.ReadLine());
@@ -91,24 +116,44 @@ namespace AddressBookSystem
                             item.Value.PhoneNumber = Convert.ToInt64(Console.ReadLine());
                             break;
                     }
+                    Console.WriteLine("\nEdited Successfully.\n");
                 }
             }
         }
         /// <summary>
-        /// Delete's the contact using name.
+        /// Deletes the contact.
         /// </summary>
-        /// <param name="name"></param>
-        public void DeleteContact(string name)
+        /// <param name="name">The name.</param>
+        /// <param name="bookName"></param>
+        public void DeleteContact(string name, string bookName)
         {
-            if (addressBook.ContainsKey(name))
+            if (addressBookDictionary[bookName].addressBook.ContainsKey(name))
             {
-                addressBook.Remove(name);
+                addressBookDictionary[bookName].addressBook.Remove(name);
                 Console.WriteLine("\nDeleted Succesfully.\n");
             }
             else
             {
                 Console.WriteLine("\nNot Found, Try Again.\n");
             }
+        }
+        /// <summary>
+        /// Adds the address book.
+        /// </summary>
+        /// <param name="bookName">Name of the book.</param>
+        public void AddAddressBook(string bookName)
+        {
+            AddressBook addressBook = new AddressBook();
+            addressBookDictionary.Add(bookName, addressBook);
+            Console.WriteLine("AddressBook Created.");
+        }
+        /// <summary>
+        /// Gets the address book.
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, AddressBook> GetAddressBook()
+        {
+            return addressBookDictionary;
         }
     }
 }

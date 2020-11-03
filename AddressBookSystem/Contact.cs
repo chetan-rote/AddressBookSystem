@@ -3,9 +3,31 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace AddressBookSystem
-{
+{   
     public class Contact
-    {        
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Contact"/> class.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="address">The address.</param>
+        /// <param name="city">The city.</param>
+        /// <param name="state">The state.</param>
+        /// <param name="zip">The zip.</param>
+        /// <param name="phoneNumber">The phone number.</param>
+        /// <param name="email">The email.</param>
+        public Contact(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string email,string bookName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Address = address;
+            City = city;
+            State = state;
+            Zip = zip;
+            PhoneNumber = phoneNumber;
+            Email = email;
+        }
         /// <summary>
         /// Gets or sets the first name.
         /// </summary>
@@ -61,28 +83,6 @@ namespace AddressBookSystem
         /// <value>
         /// The email.
         /// </value>
-        public string Email { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Contact"/> class.
-        /// </summary>
-        /// <param name="firstName">The first name.</param>
-        /// <param name="lastName">The last name.</param>
-        /// <param name="address">The address.</param>
-        /// <param name="city">The city.</param>
-        /// <param name="state">The state.</param>
-        /// <param name="zip">The zip.</param>
-        /// <param name="phoneNumber">The phone number.</param>
-        /// <param name="email">The email.</param>
-        public Contact(string firstName, string lastName, string address, string city, string state, int zip, long phoneNumber, string email)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Address = address;
-            City = city;
-            State = state;
-            Zip = zip;
-            PhoneNumber = phoneNumber;
-            Email = email;
-        }        
+        public string Email { get; set; }        
     }
 }
