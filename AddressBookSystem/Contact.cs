@@ -83,6 +83,26 @@ namespace AddressBookSystem
         /// <value>
         /// The email.
         /// </value>
-        public string Email { get; set; }        
+        public string Email { get; set; }
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            Contact contact = (Contact)obj;
+            if (contact == null)
+                return false;
+            else
+                return FirstName.Equals(contact.FirstName) && Email.Equals(contact.Email);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(FirstName, LastName);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace AddressBookSystem
 {
@@ -27,6 +28,15 @@ namespace AddressBookSystem
             Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email, bookName);
             addressBookDictionary[bookName].addressBook.Add(contact.FirstName, contact);
             Console.WriteLine("\nAdded Succesfully. \n");
+
+            if (CheckForSpace(firstName, lastName))
+            {
+                Console.WriteLine("Enter Valid Name");
+            }
+            else
+            {
+                CheckDuplicateEntry(contact, bookName);
+            }
         }
         /// <summary>
         /// Displays the contact.
@@ -154,6 +164,45 @@ namespace AddressBookSystem
         public Dictionary<string, AddressBook> GetAddressBook()
         {
             return addressBookDictionary;
+        }
+        /// <summary>
+        /// Gets the list of dictctionary keys.
+        /// </summary>
+        /// <param name="bookName">Name of the book.</param>
+        /// <returns></returns>
+        public List<Contact> GetListOfDictctionaryKeys(string bookName)
+        {
+            List<Contact> book = new List<Contact>();
+            foreach (var value in addressBookDictionary[bookName].addressBook.Values)
+            {
+                book.Add(value);
+            }
+            return book;
+        }
+        /// <summary>
+        /// Checks the duplicate entry in Address Book.
+        /// </summary>
+        /// <param name="contacts">The c.</param>
+        /// <param name="bookName">Name of the book.</param>
+        /// <returns></returns>
+        public bool CheckDuplicateEntry(Contact contacts, string bookName)
+        {
+            List<Contact> book = GetListOfDictctionaryKeys(bookName);
+            if (book.Any(b => b.Equals(contacts)))
+            {
+                Console.WriteLine("Name already Exists.");
+                return true;
+            }
+            return false;
+        }
+
+        public bool CheckForSpace(string firstName, string lastname)
+        {
+            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastname))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
