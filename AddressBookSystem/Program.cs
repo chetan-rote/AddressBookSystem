@@ -16,7 +16,7 @@ namespace AddressBookSystem
             AddressBook addressBook = new AddressBook();
             while (true)
             {
-                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.View A Contact \n5.Exit Application\n");
+                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.Display All Contacts \n5.Exit Application\n");
                 choice = Convert.ToInt32(Console.ReadLine());
                 ///Switch to give choices to user.
                 switch (choice)
@@ -52,8 +52,8 @@ namespace AddressBookSystem
                         break;
                     case 4:
                         Console.WriteLine("Enter First Name Of Contact To View :");
-                        string nameToDisplay = Console.ReadLine();
-                        addressBook.DisplayContact(nameToDisplay);
+                       // string nameToDisplay = Console.ReadLine();
+                        addressBook.DisplayAllContact();
                         break;
                     case 5:
                         Console.WriteLine("Thank You For Using Address Book System.");
