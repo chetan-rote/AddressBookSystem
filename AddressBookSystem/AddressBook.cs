@@ -32,16 +32,7 @@ namespace AddressBookSystem
         {
             Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email, bookName);
             addressBookDictionary[bookName].addressBook.Add(contact.FirstName, contact);
-            Console.WriteLine("\nAdded Succesfully. \n");
-
-            if (CheckForSpace(firstName, lastName))
-            {
-                Console.WriteLine("Enter Valid Name");
-            }
-            else
-            {
-                CheckDuplicateEntry(contact, bookName);
-            }
+            Console.WriteLine("\nAdded Succesfully. \n");            
         }
         /// <summary>
         /// Displays the contact.
@@ -172,37 +163,7 @@ namespace AddressBookSystem
         public Dictionary<string, AddressBook> GetAddressBook()
         {
             return addressBookDictionary;
-        }
-        /// <summary>
-        /// Checks the duplicate entry in Address Book.
-        /// </summary>
-        /// <param name="contacts">The c.</param>
-        /// <param name="bookName">Name of the book.</param>
-        /// <returns></returns>
-        public bool CheckDuplicateEntry(Contact contacts, string bookName)
-        {
-            List<Contact> book = GetListOfDictctionaryKeys(bookName);
-            if (book.Any(b => b.Equals(contacts)))
-            {
-                Console.WriteLine("Name already Exists.");
-                return true;
-            }
-            return false;
-        }
-        /// <summary>
-        /// Checks for blank space.
-        /// </summary>
-        /// <param name="firstName">The first name.</param>
-        /// <param name="lastname">The lastname.</param>
-        /// <returns></returns>
-        public bool CheckForSpace(string firstName, string lastname)
-        {
-            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastname))
-            {
-                return true;
-            }
-            return false;
-        }
+        }        
         /// <summary>
         /// Gets the list of dictctionary keys.
         /// </summary>
@@ -248,6 +209,7 @@ namespace AddressBookSystem
             }
         }
         /// <summary>
+        /// UC_8
         /// Searches the contacts by state.
         /// </summary>
         /// <param name="state">The state.</param>
@@ -263,6 +225,7 @@ namespace AddressBookSystem
             }
         }
         /// <summary>
+        /// UC_9
         /// Views the contacts by city.
         /// </summary>
         public void ViewByCity(string city)
@@ -276,6 +239,7 @@ namespace AddressBookSystem
             }
         }
         /// <summary>
+        /// UC_9
         /// Views the contacts by state.
         /// </summary>
         public void ViewByState(string state)
@@ -286,6 +250,69 @@ namespace AddressBookSystem
                 {
                     addressBookObj.stateDictionary.Add(contact, contact.State);
                 }
+            }
+        }
+        /// <summary>
+        /// Adds contacts data to city dictionary.
+        /// </summary>
+        public void CreateCityDictionary()
+        {
+            foreach (AddressBook addressBookObj in addressBookDictionary.Values)
+            {
+                foreach (Contact contact in addressBookObj.addressBook.Values)
+                {
+                    addressBookObj.cityDictionary.TryAdd(contact, contact.City);
+                }
+            }
+        }
+        /// <summary>
+        /// Adds data to State Dictionary
+        /// </summary>
+        public void CreateStateDictionary()
+        {
+            foreach (AddressBook addressBookObj in addressBookDictionary.Values)
+            {
+                foreach (Contact contact in addressBookObj.addressBook.Values)
+                {
+                    addressBookObj.stateDictionary.TryAdd(contact, contact.State);
+                }
+            }
+        }
+        /// <summary>
+        /// UC_10
+        /// Gives counts of person by city and state.
+        /// </summary>
+        public void CountPersonByCityOrState()
+        {
+            CreateCityDictionary();
+            CreateStateDictionary();
+            Dictionary<string, int> countByCity = new Dictionary<string, int>();
+            Dictionary<string, int> countByState = new Dictionary<string, int>();
+            foreach (var obj in addressBookDictionary.Values)
+            {
+                foreach (var person in obj.cityDictionary)
+                {
+                    countByCity.TryAdd(person.Value, 0);
+                    countByCity[person.Value]++;
+                }
+            }
+            Console.WriteLine("City wise count :");
+            foreach (var person in countByCity)
+            {
+                Console.WriteLine(person.Key + ":" + person.Value);
+            }
+            foreach (var obj in addressBookDictionary.Values)
+            {
+                foreach (var person in obj.stateDictionary)
+                {
+                    countByState.TryAdd(person.Value, 0);
+                    countByState[person.Value]++;
+                }
+            }
+            Console.WriteLine("State wise count :");
+            foreach (var person in countByState)
+            {
+                Console.WriteLine(person.Key + ":" + person.Value);
             }
         }
     }
