@@ -34,7 +34,8 @@ namespace AddressBookSystem
             {
                 ///Menu for Contacts.
                 Console.WriteLine($"Working On {bookName} AddressBook\n");
-                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.View A Contact \n5.View All Contacts \n6.Add New AddressBook \n7.Switch AddressBook \n8.Search Contact by city or state\n9.View Contacts by City or State.\n10. Count by city or state.  \n11.Exit Application\n");
+                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.View A Contact \n5.View All Contacts \n6.Add New AddressBook \n7.Switch AddressBook \n8.Search Contact by city or state\n" +
+                    "9.View Contacts by City or State.\n10. Count by city or state.\n11.Sort Entries by name.  \n12.Exit Application\n");
                 choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
@@ -145,11 +146,14 @@ namespace AddressBookSystem
                     case 10:
                         addressBook.CountPersonByCityOrState();
                         break;
-                    case 11:                       
+                    case 11:
+                        addressBook.SortByName();
+                        break;
+                    case 12:                       
                         Console.WriteLine("Thank You For Using Address Book System.");
                         break;
                 }
-            } while (choice != 11);
+            } while (choice != 12);
         }
     }
 }
