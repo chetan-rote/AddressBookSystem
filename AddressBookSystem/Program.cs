@@ -35,7 +35,7 @@ namespace AddressBookSystem
                 ///Menu for Contacts.
                 Console.WriteLine($"Working On {bookName} AddressBook\n");
                 Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.View A Contact \n5.View All Contacts \n6.Add New AddressBook \n7.Switch AddressBook \n8.Search Contact by city or state\n" +
-                    "9.View Contacts by City or State.\n10. Count by city or state.\n11.Sort Entries by name.  \n12.Exit Application\n");
+                    "9.View Contacts by City or State.\n10. Count by city or state.\n11.Sort Entries.  \n12.Exit Application\n");
                 choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
@@ -147,7 +147,26 @@ namespace AddressBookSystem
                         addressBook.CountPersonByCityOrState();
                         break;
                     case 11:
-                        addressBook.SortByName();
+                        Console.WriteLine("\n1.Sort By Name \n2.Sort By City \n3.Sort By State \n4.Sort By Zip");
+                        int ch = Convert.ToInt32(Console.ReadLine());
+                        switch (ch)
+                        {
+                            case 1:
+                                addressBook.SortByName();
+                                break;
+                            case 2:
+                                addressBook.SortByCity();
+                                break;
+                            case 3:
+                                addressBook.SortByState();
+                                break;
+                            case 4:
+                                addressBook.SortByZip();
+                                break;
+                            default:
+                                Console.WriteLine("Invalid Choice");
+                                break;
+                        }
                         break;
                     case 12:                       
                         Console.WriteLine("Thank You For Using Address Book System.");
