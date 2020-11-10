@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 namespace AddressBookSystem
+
 {
     class Program
     {
+        public static List<string> data = new List<string>();
         /// <summary>
         /// Defines the entry point of the application.
         /// </summary>
@@ -123,7 +125,7 @@ namespace AddressBookSystem
                             default:
                                 Console.WriteLine("Invalid Input.Enter 1 or 2");
                                 break;
-                        }                        
+                        }
                         break;
                     case 9:
                         Console.WriteLine("Would You Like To \n1.View by city \n2.View by state");
@@ -141,7 +143,7 @@ namespace AddressBookSystem
                             default:
                                 Console.WriteLine("Invalid Input.Enter 1 or 2");
                                 break;
-                        }                        
+                        }
                         break;
                     case 10:
                         addressBook.CountPersonByCityOrState();
@@ -168,11 +170,15 @@ namespace AddressBookSystem
                                 break;
                         }
                         break;
-                    case 12:                       
+                    case 12:
                         Console.WriteLine("Thank You For Using Address Book System.");
                         break;
                 }
-            } while (choice != 12);
+            }
+            while (choice != 12);
+            Console.WriteLine("Writing in AddressBook.txt");
+            AddressBookFileIO.WriteUsingStreamWriter(addressBook.addressBookDictionary);
+            AddressBookFileIO.ReadUsingStreamReader();
         }
     }
 }

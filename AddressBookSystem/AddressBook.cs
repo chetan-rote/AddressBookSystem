@@ -8,9 +8,9 @@ namespace AddressBookSystem
     public class AddressBook : IAddressBook
     {
         /// The address book stores contact details     
-        private Dictionary<string, Contact> addressBook = new Dictionary<string, Contact>();
+        public Dictionary<string, Contact> addressBook = new Dictionary<string, Contact>();
         /// The address book dictionary stores address books.
-        private Dictionary<string, AddressBook> addressBookDictionary = new Dictionary<string, AddressBook>();
+        public Dictionary<string, AddressBook> addressBookDictionary = new Dictionary<string, AddressBook>();
         /// The dictionary to store city.
         private Dictionary<Contact, string> cityDictionary = new Dictionary<Contact, string>();
         /// The dictionary to store state.
